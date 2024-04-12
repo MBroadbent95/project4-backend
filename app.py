@@ -26,5 +26,5 @@ bcrypt = Bcrypt(app)
 
 from controllers import recipes, users
 
-app.register_blueprint(crisps.router, url_prefix="/api")
+app.register_blueprint(recipes.router, url_prefix="/api")
 app.register_blueprint(users.router, url_prefix="/api")

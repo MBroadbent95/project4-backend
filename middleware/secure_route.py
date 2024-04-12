@@ -43,7 +43,7 @@ def secure_route(route_func):
             g.current_user = user
 
             print("current user is: ", g.current_user.username, g.current_user)
-
+            print(payload)
             return route_func(*args, **kwargs)
 
         except jwt.ExpiredSignatureError:
