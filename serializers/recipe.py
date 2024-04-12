@@ -1,18 +1,18 @@
 from app import marsh
 
-from models.crisp import CrispModel
+from models.recipe import RecipeModel
 
 from marshmallow import fields
 
 from serializers.user import UserSerializer
 
 
-class CrispSerializer(marsh.SQLAlchemyAutoSchema):
+class RecipeSerializer(marsh.SQLAlchemyAutoSchema):
 
     user = fields.Nested("UserSerializer", many=False)
 
     class Meta:
 
-        model = CrispModel
+        model = RecipeModel
 
         load_instance = True
