@@ -22,6 +22,7 @@ with app.app_context():
 
         thai_green_curry = RecipeModel(
             name="Thai Green Curry",
+            cuisine="Thai",
             serving="4 servings",
             prep_time="20 mins",
             total_time="35 mins",
