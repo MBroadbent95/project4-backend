@@ -10,6 +10,7 @@ class RecipeModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.Text, nullable=False, unique=True)
+    cuisine = db.Column(db.Text, nullable=False)
     serving = db.Column(db.Text, nullable=False)
     prep_time = db.Column(db.Text, nullable=False)
     total_time = db.Column(db.Text, nullable=False)
