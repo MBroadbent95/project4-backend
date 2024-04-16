@@ -17,6 +17,7 @@ class RecipeModel(db.Model):
     cal_serv = db.Column(db.Integer, nullable=False)
     ingredients = db.Column(db.Text, nullable=False)
     directions_instructions = db.Column(db.Text, nullable=False)
+    image_url = db.Column(db.String(255))
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
