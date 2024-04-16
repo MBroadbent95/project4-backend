@@ -131,6 +131,22 @@ def remove_comment(comment_id):
     if not comment:
         return {"message": "No comment found"}, HTTPStatus.NOT_FOUND
 
+    if comment.user_id != g.current_user.id:
+        return {
+            "message": "You are not authorized to delete this comment"
+        }, HTTPStatus.FORBIDDEN
+
     comment.remove()
 
     return "", HTTPStatus.NO_CONTENT
+
+
+@router.route("/recipes/<int:recipe_id>/comments", methods=["GET"])
+def get_comments_for_recipe(recipe_id):
+    recipe = RecipeModel.query.get(recipe_id)
+    if not recipe:
+        return {"message": "Recipe not found"}, HTTPStatus.NOT_FOUND
+
+    comments = recipe.comments.all()  # Access comments associated with the recipe
+
+    return comment_schema.jsonify(comments, many=True), HTTPStatus.OK
