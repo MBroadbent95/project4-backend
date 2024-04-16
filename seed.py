@@ -29,6 +29,7 @@ with app.app_context():
             cal_serv=400,
             ingredients="a bunch of ingredients",
             directions_instructions="Step 1 - Make the food",
+            image_url="https://i.imgur.com/mdkcaBa.jpg",
             user_id=nick.id,
         )
 

@@ -12,6 +12,7 @@ from models.recipe import RecipeModel
 
 from app import db
 
+
 from middleware.secure_route import secure_route
 
 from serializers.recipe import RecipeSerializer
