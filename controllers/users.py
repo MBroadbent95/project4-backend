@@ -24,9 +24,17 @@ router = Blueprint("users", __name__)
 
 @router.route("/signup", methods=["POST"])
 def signup():
+    user_dictionary = request.json
 
+    if user_dictionary["password"] != user_dictionary["passwordConfirmation"]:
+        return {
+            "errors": "Passwords do not match",
+            "messsages": "Something went wrong",
+        }, HTTPStatus.UNPROCESSABLE_ENTITY
+
+    # ! Delete the password conf field that marshmallow doens't know about.
+    del user_dictionary["password_confirmation"]
     try:
-        user_dictionary = request.json
 
         print("in signup", user_dictionary)
 
@@ -80,3 +88,42 @@ def login():
     print("Otherwise success!!")
 
     return {"message": "Login Successful", "token": token}, 200
+
+
+@router.route("/user", methods=["GET"])
+def get_current_user():
+    # Retrieve the JWT token from the request headers
+    auth_header = request.headers.get("Authorization")
+
+    if not auth_header:
+        return {"message": "Authorization header is missing"}, HTTPStatus.UNAUTHORIZED
+
+    # Extract the token from the Authorization header
+    token = auth_header.split(" ")[1]
+
+    try:
+        # Decode the token using the secret key
+        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        # Extract the user id from the decoded payload
+        user_id = payload["sub"]
+
+        # Retrieve the user from the database based on the user id
+        user = UserModel.query.get(user_id)
+
+        if not user:
+            return {"message": "User not found"}, HTTPStatus.NOT_FOUND
+
+        # Serialize the user data
+        serialized_user = user_serializer.dump(user)
+
+        return serialized_user, HTTPStatus.OK
+
+    except jwt.ExpiredSignatureError:
+        return {"message": "Token has expired"}, HTTPStatus.UNAUTHORIZED
+
+    except jwt.InvalidTokenError:
+        return {"message": "Invalid token"}, HTTPStatus.UNAUTHORIZED
+
+    except Exception as e:
+        print(e)
+        return {"message": "Something went wrong"}, HTTPStatus.INTERNAL_SERVER_ERROR

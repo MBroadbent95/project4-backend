@@ -36,7 +36,9 @@ with app.app_context():
         db.session.add(thai_green_curry)
         db.session.commit()
 
-        comment = CommentModel(content="Amazing taste.", recipe_id=thai_green_curry.id)
+        comment = CommentModel(
+            content="Amazing taste.", recipe_id=thai_green_curry.id, user_id=nick.id
+        )
         comment.save()
 
         print("Seeding some data")

@@ -20,5 +20,6 @@ class RecipeModel(db.Model):
     image_url = db.Column(db.String(255))
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    comments = db.relationship("CommentModel", backref="recipe", lazy="dynamic")
 
     user = db.relationship("UserModel", backref="recipes")
