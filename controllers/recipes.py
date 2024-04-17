@@ -114,6 +114,7 @@ def create_comment(recipe_id):
 
     try:
         comment = comment_schema.load(comment_dictionary)
+        comment.user_id = g.current_user.id
         comment.recipe_id = recipe_id
         comment.save()
     except ValidationError as e:

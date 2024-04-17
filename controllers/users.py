@@ -108,7 +108,8 @@ def get_current_user():
         user_id = payload["sub"]
 
         # Retrieve the user from the database based on the user id
-        user = UserModel.query.get(user_id)
+        # user = UserModel.query.get(user_id)
+        user = db.session.query(UserModel).get(user_id)
 
         if not user:
             return {"message": "User not found"}, HTTPStatus.NOT_FOUND
