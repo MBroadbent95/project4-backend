@@ -53,8 +53,8 @@ def secure_route(route_func):
             return {
                 "message": f"Unauthorized: Invalid Token: {str(e)}"
             }, HTTPStatus.UNAUTHORIZED
-        except Exception:
-            print("Issue with token")
+        except Exception as e:
+            print(e)
             return {"message": "Unauthorized"}, HTTPStatus.UNAUTHORIZED
 
     return wrapper

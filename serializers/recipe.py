@@ -16,3 +16,4 @@ class RecipeSerializer(marsh.SQLAlchemyAutoSchema):
         model = RecipeModel
 
         load_instance = True
+        include_fk = True
