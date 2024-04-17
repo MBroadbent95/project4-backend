@@ -17,8 +17,11 @@ from middleware.secure_route import secure_route
 
 from serializers.recipe import RecipeSerializer
 from serializers.comment import CommentSchema
+from serializers.superComment import SuperCommentSchema
 
 recipe_serializer = RecipeSerializer()
+
+super_comment_schema = SuperCommentSchema()
 
 comment_schema = CommentSchema()
 
@@ -113,14 +116,17 @@ def create_comment(recipe_id):
         return {"message": "No recipe found"}, HTTPStatus.NOT_FOUND
 
     try:
-        comment = comment_schema.load(comment_dictionary)
+
+        comment = super_comment_schema.load(comment_dictionary)
+        print(comment_dictionary)
         comment.user_id = g.current_user.id
         comment.recipe_id = recipe_id
         comment.save()
+
     except ValidationError as e:
         return {"errors": e.messages, "message": "Something went wrong"}
 
-    return comment_schema.jsonify(comment), HTTPStatus.CREATED
+    return super_comment_schema.jsonify(comment), HTTPStatus.CREATED
 
 
 @router.route("/comments/<int:comment_id>", methods=["DELETE"])
