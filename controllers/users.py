@@ -33,7 +33,7 @@ def signup():
         }, HTTPStatus.UNPROCESSABLE_ENTITY
 
     # ! Delete the password conf field that marshmallow doens't know about.
-    del user_dictionary["password_confirmation"]
+    del user_dictionary["passwordConfirmation"]
     try:
 
         print("in signup", user_dictionary)
