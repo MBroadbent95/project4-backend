@@ -54,8 +54,40 @@ def get_single_recipe(recipe_id):
 @router.route("/recipes", methods=["POST"])
 @secure_route
 def create():
+    recipe_dictionary = request.json
+
+    if "name" not in recipe_dictionary or not recipe_dictionary["name"]:
+        return {"errors": {"name": "Name field is required."}}, 400
+
+    if "cuisine" not in recipe_dictionary or not recipe_dictionary["cuisine"]:
+        return {"errors": {"cuisine": "Cuisine field is required."}}, 400
+
+    if "serving" not in recipe_dictionary or not recipe_dictionary["serving"]:
+        return {"errors": {"serving": "Serving field is required."}}, 400
+
+    if "prep_time" not in recipe_dictionary or not recipe_dictionary["prep_time"]:
+        return {"errors": {"prep_time": "Prep Time field is required."}}, 400
+
+    if "total_time" not in recipe_dictionary or not recipe_dictionary["total_time"]:
+        return {"errors": {"total_time": "Total Time field is required."}}, 400
+
+    if "cal_serv" not in recipe_dictionary or not recipe_dictionary["cal_serv"]:
+        return {"errors": {"cal_serv": "Cal Serv field is required."}}, 400
+
+    if "ingredients" not in recipe_dictionary or not recipe_dictionary["ingredients"]:
+        return {"errors": {"ingredients": "Ingredients field is required."}}, 400
+    if (
+        "directions_instructions" not in recipe_dictionary
+        or not recipe_dictionary["directions_instructions"]
+    ):
+        return {
+            "errors": {
+                "directions_instructions": "Directions Instructions field is required."
+            }
+        }, 400
+    if "image_url" not in recipe_dictionary or not recipe_dictionary["image_url"]:
+        return {"errors": {"image_url": "image Url field is required."}}, 400
     try:
-        recipe_dictionary = request.json
 
         recipe_model = recipe_serializer.load(recipe_dictionary)
 

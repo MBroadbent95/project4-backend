@@ -16,6 +16,8 @@ import jwt
 
 from config.environment import SECRET
 
+import re
+
 
 user_serializer = UserSerializer()
 
@@ -28,8 +30,41 @@ def signup():
 
     if user_dictionary["password"] != user_dictionary["passwordConfirmation"]:
         return {
-            "errors": "Passwords do not match",
+            "errors": {"passwordConfirmation": "Passwords do not match"},
             "messsages": "Something went wrong",
+        }, HTTPStatus.UNPROCESSABLE_ENTITY
+
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", user_dictionary["email"]):
+        return {
+            "errors": {"email": "Invalid email format"},
+            "messages": "Something went wrong",
+        }, HTTPStatus.UNPROCESSABLE_ENTITY
+
+    existing_user = UserModel.query.filter_by(email=user_dictionary["email"]).first()
+    if existing_user:
+        return {
+            "errors": {"email": "Email is already registered"},
+            "messages": "Something went wrong",
+        }, HTTPStatus.UNPROCESSABLE_ENTITY
+
+    existing_user_username = UserModel.query.filter_by(
+        username=user_dictionary["username"]
+    ).first()
+    if existing_user_username:
+        return {
+            "errors": {"username": "Username is already taken"},
+            "messages": "Something went wrong",
+        }, HTTPStatus.UNPROCESSABLE_ENTITY
+
+    if not re.match(
+        r"^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[a-zA-Z0-9!@#$%^&*()-_+=]{8,}$",
+        user_dictionary["password"],
+    ):
+        return {
+            "errors": {
+                "password": "Password must contain at least one number, one capital letter, and one special character"
+            },
+            "messages": "Something went wrong",
         }, HTTPStatus.UNPROCESSABLE_ENTITY
 
     # ! Delete the password conf field that marshmallow doens't know about.
