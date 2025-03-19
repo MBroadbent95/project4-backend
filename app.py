@@ -13,6 +13,11 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 
+@app.route("/", methods=["GET"])
+def home():
+    return "Welcome to the Project 4 Backend!"
+
+
 @app.route("/hello", methods=["GET"])
 def hello():
     return "Hello, World!"
