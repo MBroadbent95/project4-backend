@@ -11,7 +11,7 @@ def seed_database():
 
     try:
         print("Connected to our database")
-        if not UserModel.query.first():
+        if db.session.query(UserModel).count() == 0:
             print("Seeding database...")
 
             db.drop_all()
