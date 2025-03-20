@@ -6,7 +6,7 @@ from flask import Blueprint, request
 
 from marshmallow.exceptions import ValidationError
 
-from app import db
+from extensions import db
 
 from models.user import UserModel
 

@@ -7,7 +7,7 @@ from models.user import UserModel
 # with app.app_context():
 def seed_database():
     """Seed the database with initial data if the databse is empty."""
-    from app import db
+    from extensions import db
 
     try:
         print("Connected to our database")

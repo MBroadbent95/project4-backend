@@ -1,6 +1,7 @@
 import json
 import pytest
-from app import app, db
+from app import app
+from extensions import db
 from models.user import UserModel
 from models.recipe import RecipeModel
 

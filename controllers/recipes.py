@@ -10,7 +10,7 @@ from models.comment import CommentModel
 
 from models.recipe import RecipeModel
 
-from app import db
+from extensions import db
 
 
 from middleware.secure_route import secure_route
