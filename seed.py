@@ -1,4 +1,4 @@
-from app import app, db
+# from app import app, db
 from models.recipe import RecipeModel
 from models.comment import CommentModel
 from models.user import UserModel
@@ -7,6 +7,7 @@ from models.user import UserModel
 # with app.app_context():
 def seed_database():
     """Seed the database with initial data if the databse is empty."""
+    from app import db
 
     try:
         print("Connected to our database")
@@ -167,5 +168,5 @@ def seed_database():
         print(e)
 
 
-with app.app_context():
-    seed_database()
+# with app.app_context():
+#     seed_database()
