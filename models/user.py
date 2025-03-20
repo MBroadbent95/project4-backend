@@ -1,6 +1,6 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from app import db, bcrypt
+from extensions import db, bcrypt
 
 
 class UserModel(db.Model):

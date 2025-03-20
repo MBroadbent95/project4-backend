@@ -3,7 +3,7 @@ from functools import wraps
 from flask import request, g
 import jwt
 
-from app import db
+from extensions import db
 from models.user import UserModel
 
 from config.environment import SECRET

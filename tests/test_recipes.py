@@ -1,6 +1,6 @@
 import json
-
-from app import app, db
+from extensions import db
+from app import app
 
 from tests.lib import login, setup
 

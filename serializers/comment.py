@@ -1,4 +1,4 @@
-from app import marsh
+from extensions import marsh
 from models.comment import CommentModel
 
 

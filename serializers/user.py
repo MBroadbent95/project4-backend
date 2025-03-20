@@ -1,6 +1,6 @@
 from marshmallow import fields
 
-from app import marsh
+from extensions import marsh
 from models.user import UserModel
 
 
