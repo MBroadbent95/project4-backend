@@ -24,7 +24,7 @@ def create_app():
     CORS(
         app,
         origins=[
-            "https://main--tasteful-trove.netlify.app/",
+            "https://main--tasteful-trove.netlify.app",
         ],
     )
 
