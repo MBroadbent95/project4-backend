@@ -1,18 +1,20 @@
+from dotenv import load_dotenv
+
+import os
+
 from flask import Flask, jsonify
-
-# from flask_sqlalchemy import SQLAlchemy
-
-# from flask_marshmallow import Marshmallow
-
-# from flask_bcrypt import Bcrypt
-
-# from config.environment import db_URI
 
 from flask_cors import CORS
 
-from config.environment import db_URI
+# from config.environment import db_URI
 
 from extensions import db, marsh, bcrypt
+
+load_dotenv()
+
+db_URI = os.getenv("DATABASE_URL")
+
+SECRET_KEY = os.getenv("SECRET")
 
 
 def create_app():
@@ -20,6 +22,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = db_URI
+    app.config["SECRET_KEY"] = SECRET_KEY
 
     CORS(
         app,

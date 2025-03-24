@@ -14,6 +14,7 @@ pyjwt = "*"
 pytest = "*"
 flask-cors = "*"
 gunicorn = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
